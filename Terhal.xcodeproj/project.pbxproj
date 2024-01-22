@@ -55,8 +55,10 @@
 		245458E12B5E921400CC846A /* Terhal */ = {
 			isa = PBXGroup;
 			children = (
+				990D07E02B5EAA79007A114F /* View Model */,
+				990D07DF2B5EAA70007A114F /* View */,
+				990D07DE2B5EAA65007A114F /* Model */,
 				245458E22B5E921400CC846A /* TerhalApp.swift */,
-				245458E42B5E921400CC846A /* ContentView.swift */,
 				245458E62B5E921400CC846A /* Item.swift */,
 				245458E82B5E921600CC846A /* Assets.xcassets */,
 				245458ED2B5E921600CC846A /* Terhal.entitlements */,
@@ -72,6 +74,28 @@
 				245458EB2B5E921600CC846A /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		990D07DE2B5EAA65007A114F /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		990D07DF2B5EAA70007A114F /* View */ = {
+			isa = PBXGroup;
+			children = (
+				245458E42B5E921400CC846A /* ContentView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		990D07E02B5EAA79007A114F /* View Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = "View Model";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
