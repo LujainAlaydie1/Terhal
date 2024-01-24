@@ -6,11 +6,25 @@
 //
 
 import SwiftUI
-
+import FLAnimatedImage
 struct SplashScreen: View {
     var body: some View {
         ZStack{
-            
+            GeometryReader{ geometry in
+            VStack{
+                Spacer()
+                HStack{
+                    Spacer()
+                    GIFView(type: .name("LOGO"))
+                        .frame(width: geometry.size.width / 2.3, height: geometry.size.height / 4)
+
+                    Spacer()
+                }
+                .padding(.horizontal, 0)
+                
+                Spacer()
+            }
+            }
         }
         .frame(width: 390, height: 844)
         .background(

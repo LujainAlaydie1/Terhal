@@ -2,6 +2,15 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>NSLocationTemporaryUsageDescriptionDictionary</key>
+	<dict>
+		<key>LocationAccuracyAuthorizationDescription</key>
+		<string>Please enable precise location. Weather map accuracy only work when precise location data is available.</string>
+		<key>CustomKey</key>
+		<string>We temporarily require your precise location for an optimal experience.</string>
+	</dict>
+	<key>MBXAccessToken</key>
+	<string>sk.eyJ1IjoibHVqYWluYWxheWRpZSIsImEiOiJjbHJqOHV5emwwMTJpMnFrNGRmNnYycHcyIn0.l14P2GqvyjjzcY2mlqHt8w</string>
 	<key>UIBackgroundModes</key>
 	<array>
 		<string>remote-notification</string>

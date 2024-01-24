@@ -7,55 +7,62 @@
 
 import SwiftUI
 import SwiftData
+@_spi(Experimental) import MapboxMaps
 
 struct ContentView: View {
-    @Environment(\.modelContext) private var modelContext
-    @Query private var items: [Item]
-
     var body: some View {
-        NavigationSplitView {
-            List {
-                ForEach(items) { item in
-                    NavigationLink {
-                        Text("Item at \(item.timestamp, format: Date.FormatStyle(date: .numeric, time: .standard))")
-                    } label: {
-                        Text(item.timestamp, format: Date.FormatStyle(date: .numeric, time: .standard))
-                    }
-                }
-                .onDelete(perform: deleteItems)
-            }
-            .toolbar {
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    EditButton()
-                }
-                ToolbarItem {
-                    Button(action: addItem) {
-                        Label("Add Item", systemImage: "plus")
-                    }
-                }
-            }
-        } detail: {
-            Text("Select an item")
+        // As SwiftUI support is experimental it needs to be imported with @_spi(Experimental)
+        // The API may change in future releases.
+        let center = CLLocationCoordinate2D(latitude: 39.5, longitude: -98.0)
+        Map(initialViewport: .camera(center: center, zoom: 2, bearing: 0, pitch: 0))
+        .ignoresSafeArea()
         }
     }
 
-    private func addItem() {
-        withAnimation {
-            let newItem = Item(timestamp: Date())
-            modelContext.insert(newItem)
-        }
+
+
+
+class ViewController: UIViewController {
+    // This controller's initialization has been omitted in this code snippet
+    var mapView: MapView!
+    // A location provider that you use to customize location settings.
+    let locationProvider = AppleLocationProvider()
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        mapView = MapView()
+        // Override the default location provider with the custom one.
+        mapView.location.override(provider: locationProvider)
+        locationProvider.delegate = self
     }
 
-    private func deleteItems(offsets: IndexSet) {
-        withAnimation {
-            for index in offsets {
-                modelContext.delete(items[index])
-            }
+    // Method that will be called as a result of the delegate below
+    func requestPermissionsButtonTapped() {
+        locationProvider.requestTemporaryFullAccuracyAuthorization(withPurposeKey: "CustomKey")
+    }
+}
+
+extension ViewController: AppleLocationProviderDelegate {
+    func appleLocationProvider(_ locationProvider: MapboxMaps.AppleLocationProvider, didFailWithError error: Error) {
+        if error != nil {
+         // Perform an action in response to the error in accuracy
+            print(error.localizedDescription)
         }
     }
+    
+    func appleLocationProvider(_ locationProvider: MapboxMaps.AppleLocationProvider, didChangeAccuracyAuthorization accuracyAuthorization: CLAccuracyAuthorization) {
+        if accuracyAuthorization == .reducedAccuracy {
+         // Perform an action in response to the new change in accuracy
+        }
+        
+    }
+    
+    func appleLocationProviderShouldDisplayHeadingCalibration(_ locationProvider: MapboxMaps.AppleLocationProvider) -> Bool {
+        return true
+    }
+    
 }
 
 #Preview {
     ContentView()
-        .modelContainer(for: Item.self, inMemory: true)
 }
